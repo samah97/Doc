@@ -1,0 +1,51 @@
+.row.about{
+	margin-bottom:50px;
+}
+
+.btn-back{
+	font-weight:bold;
+}
+
+.about-patient
+{
+border:1px solid black;
+border-radius:10px;
+overflow:auto;
+padding:10px;
+background:#666666;
+}
+
+.about-patient h2{
+    text-align: center;
+    margin-top: 0px;
+    background-color: #006600;
+    color: #ffffff;
+    font-family: Helvetica;
+    box-shadow: 31px 10px 50px #383030;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.about-patient table{
+	margin-top:12px;
+}
+
+.about-patient td{
+	padding:5px;
+	color:white;
+	font-family:Helvetica;
+	}
+
+.about-patient td{
+
+	color:#ffffff;
+}
+
+.about-patient td:nth-child(2){
+	color:#cccccc;	
+}
+
+.btn-choose-pat{
+	font-weight:bold;
+	font-family:cursive;
+}

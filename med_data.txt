@@ -1,0 +1,203 @@
+N01BB02
+1% W/V LIDOCAINE HCL INJECTION USP
+G
+Lignocaine HCl - 1%
+1%
+Injectable solution
+57,018 L.L
+R05D
+123 COLD
+B
+Phenylephrine HCl - 5mg, Carbinoxamine HCl - 3mg, Caffeine anhydrous - 30mg, Codeine phosphate - 8mg, Acetaminophen - 325mg
+Tablet
+4,928 L.L
+R05X
+123 PEDIATRIC
+B
+Sodium salicylate - 100mg/5ml, Phenylephrine HCl - 1mg/5ml, Carbinoxamine maleate - 1mg/5ml
+Syrup
+3,337 L.L
+N01BB02
+2% W/V LIDOCAINE HCL INJECTION USP
+G
+Lignocaine HCl - 2%
+2%
+Injectable solution
+60,843 L.L
+B05
+20 MEQ POTASSIUM OF 0.9% SODIUM CHLORIDE INJECTION USP
+B
+Sodium chloride - 0.9%, Potassium chloride - 20meq
+Injectable solution
+5,217 L.L
+B05
+20 MEQ POTASSIUM OF 5% DEXTROSE AND 0.45% SODIUM CHLORIDE INJECTION USP
+B
+Dextrose, H2O - 5%, Sodium chloride - 0.45%, Potassium chloride - 20meq
+Injectable solution
+4,311 L.L
+A11DB
+3V
+G
+Vitamin B12 - 200mcg, Vitamin B6 - 200mg, Vitamin B1 - 100mg
+Tablet
+4,939 L.L
+A11DB
+3V
+G
+Vitamin B12 - 1mg/3ml, Vitamin B6 - 100mg/3ml, Vitamin B1 - 100mg/3ml
+Injectable solution
+3,374 L.L
+L01BC02
+5-FLUOROURACIL EBEWE
+G
+Fluorouracil - 500mg/10ml
+500mg/10ml
+Injectable concentrated solution
+5,167 L.L
+L01BC02
+5-FLUOROURACIL EBEWE
+G
+Fluorouracil - 250mg/5ml
+250mg/5ml
+Injectable concentrated solution
+3,818 L.L
+L01BC02
+5-FLUOROURACIL EBEWE
+G
+Fluorouracil - 1000mg/20ml
+1000mg/20ml
+Injectable concentrated solution
+12,776 L.L
+D10BA01
+A-CNOTREN
+G
+Isotretinoin - 20mg
+20mg
+Capsule, soft gelatin
+30,042 L.L
+D10AD01
+A-RET
+G
+Tretinoin - 0.05%
+0.05%
+Cream
+5,721 L.L
+B05BB01
+AAREL
+G
+Sodium lactate - 0.320g/100ml, Sodium chloride - 0.600g/100ml, Potassium chloride - 0.040g/100ml, Calcium chloride - 0.027g/100ml
+Injectable solution
+2,637 L.L
+J05AF06
+ABAMUNE
+G
+Abacavir sulfate - 300mg
+300mg
+Tablet, film coated
+268,244 L.L
+J02AA01
+ABELCET (Amphotericin B lipid complexe)
+B
+Amphotericin B lipid complex - 5mg/ml
+5mg/ml
+Injectable suspension
+376,167 L.L
+N05AX12
+ABILIFY
+B
+Aripiprazole - 10mg
+10mg
+Tablet
+208,399 L.L
+N05AX12
+ABILIFY
+B
+Aripiprazole - 20mg
+20mg
+Tablet
+377,777 L.L
+N05AX12
+ABILIFY
+B
+Aripiprazole - 30mg
+30mg
+Tablet
+492,138 L.L
+N05AX12
+ABILIFY
+B
+Aripiprazole - 15mg
+15mg
+Tablet
+246,069 L.L
+N05AX12
+ABILIFY MAINTENA
+B
+Aripiprazole - 400mg
+400mg
+Injectable powder for suspension, prolonged release+solvent
+592,707 L.L
+L01CD01
+ABRAXANE
+BioTech
+Paclitaxel Albumin- bound - 5mg/ml
+100mg/20ml
+Injectable powder for suspension
+691,329 L.L
+N01AH01
+ABSTRAL
+G
+Fentanyl (citrate) - 400mcg
+400mcg
+Tablet
+112,044 L.L
+N01AH01
+ABSTRAL
+G
+Fentanyl (citrate) - 200mcg
+200mcg
+Tablet
+112,044 L.L
+N01AH01
+ABSTRAL
+G
+Fentanyl (citrate) - 100mcg
+100mcg
+Tablet
+112,044 L.L
+R05CB01
+ACC LONG
+G
+N-acetylcysteine - 600mg, Vitamin C - 75mg
+600mg
+Tablet, effervescent
+5,055 L.L
+L01AX03
+ACCOTIM
+G
+Temozolomide - 250mg
+250mg
+Capsule, hard
+936,213 L.L
+L01AX03
+ACCOTIM
+G
+Temozolomide - 100mg
+100mg
+Capsule, hard
+412,349 L.L
+L01AX03
+ACCOTIM
+G
+Temozolomide - 20mg
+20mg
+Capsule, hard
+90,109 L.L
+L01AX03
+ACCOTIM
+G
+Temozolomide - 5mg
+5mg
+Capsule, hard
+22,732 L.L

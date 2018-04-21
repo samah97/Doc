@@ -1,0 +1,13 @@
+.schedule{
+border:2px solid black;
+border-radius:10px;
+
+}
+#today{
+	background-color:#00cc66;
+}
+.schedule h3{
+	font-family:Georgia, serif;
+	color:grey;
+	text-align:center;
+}

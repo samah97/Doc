@@ -1,0 +1,34 @@
+@media(max-width:991px){
+iframe{
+min-height:300px;
+}
+}
+@media(min-width:992px){
+	iframe{
+	min-height:400px;
+	}
+}
+
+.patient-name h3{
+	margin-top:0px;
+}
+.patient-name{
+	margin-bottom: 25px;
+}
+
+.tab-presc{
+	padding:10px;
+	border-radius:20px;
+}
+
+.tab-presc td{
+	padding: 11px 0px 10px 13px;
+	vertical-align:middle;
+}
+.tab-presc td label{
+	
+	
+}
+
+
+

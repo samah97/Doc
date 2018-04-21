@@ -1,0 +1,41 @@
+.doc_img{
+		height:90px;
+		float:LEFT;
+		padding:2px;
+		margin:3px;
+	}
+	body{
+/* Location of the image */
+
+  background-image: url(blue.jpg);
+  background-color:white;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+	}
+	@media(min-width:881px){
+	.nav-welcome{
+		position:absolute;
+		left:10%;
+		top:20%;	
+	}
+	.menu{
+		position:absolute;
+		left:27%;
+		top:20%;	
+	}
+	
+
+	.menu >li:hover{
+		-webkit-transform: scale(1.1);
+		font-weight:bold;
+	}
+	
+	.menu a:focus{
+		font-weight:bold;
+	}
+	}
+
+.dropdown-menu{
+	z-index: 999;
+	}

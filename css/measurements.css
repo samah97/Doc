@@ -1,0 +1,148 @@
+.patient-name h3{
+	margin-top:0px;
+}
+.patient-name{
+	margin-bottom: 25px;
+}
+
+
+.vaccinations-container{
+border:1px solid #DDDDDD;
+position: relative;;
+}
+
+
+.vaccinations-container h4{
+background-color: #f8f8f8;
+padding:10px;
+margin-top:0px;
+margin-bottom: 0px;
+}
+
+.vaccinations-container .slider-arrows{
+	position: absolute;
+	top:5px;
+	right:10px;
+}
+
+.vaccinations-container .slider-arrows>img{
+	width:30px;
+	height: 30px;
+	margin-right:7px;
+}
+
+.vaccinations-container .slider-arrows>img:hover{
+	cursor:pointer;
+}
+
+.view-all{
+	color:#000000;
+	font-weight:bold;
+	font-family:helvetica;
+	border-bottom:1px solid #000000;
+	margin-bottom: 1px;
+}
+.view-all:hover{
+	color:#868686;
+	border-bottom-color: #868686;
+	cursor:pointer;
+}
+
+
+
+
+
+
+.grey-line{
+width:100%;
+height:6px;
+background-color: #d0cdcd;
+margin-top:20px;
+margin-bottom: 20px;
+}
+
+
+/*Custom Checkbox */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 10px;
+    /*margin-bottom: 12px;*/
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color:#d0d0d0;
+
+	padding: 3px 30px;
+	vertical-align: middle;
+	display: block;
+	margin-bottom: 5px;
+	width: 100% !important;
+
+}
+
+.checkbox-container:hover{
+		background-color: #adaaaa;
+	cursor:pointer;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+    top: 5px;
+    left: 3px;
+    height: 21px;
+    width: 20px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+    /*background-color: #2196F3;*/
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+    left: 7px;
+    top: 1px;
+    width: 8px;
+    height: 16px;
+    border: solid #5cb85c;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(39deg);
+}
+
+.vacc-info{
+	font-weight: normal;
+	font-style: italic;
+}

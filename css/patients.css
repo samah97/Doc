@@ -1,0 +1,41 @@
+.srch-patients{
+	width:100%;
+	margin-bottom:20px;
+	border:1px solid blue;
+	border-radius:10px;
+	height:40px;
+	padding-left:20px;
+}
+
+.patients{
+    background-color: #f8f8f8;
+	    box-shadow: 12px 11px 33px #555555;
+}
+.patients>thead{
+	background-color: #555;
+    color: #d2e5ff;
+}
+
+
+th{
+	text-align:center;
+}
+.patients td,.patients td a{
+	color: #211b1b;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: sans-serif;
+	text-align:center;
+}
+.patients tbody tr:hover{
+	background-color:#55555596;
+	cursor:pointer;
+	color:white;
+}
+.patients tbody tr:hover td,
+.patients tbody tr:hover td a
+{
+	font-weight:bold;
+	color:white;
+}
+

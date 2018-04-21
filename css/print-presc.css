@@ -1,0 +1,20 @@
+table{
+	width:100%;
+}
+td{
+	padding:5px;
+}
+
+.data{
+	border:1px solid black;		
+}
+
+
+
+@media print
+{    
+    a
+    {
+        display: none !important;
+    }
+}
