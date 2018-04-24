@@ -3,13 +3,35 @@
   <script> 
   $(document).ready(function() {
 
+	var flag=true;
+	  
    var calendar = $('#calendar').fullCalendar({
     editable:true,
 	weekends:true,
+
+	customButtons:{
+		goTo:{
+			text:'',
+		    click: function() {
+			    if(flag==true){
+		    	$('.goToInputsDiv').show(700);
+		    	$('.fc-goTo-button').html('>>');
+		    	flag=false;
+			    }
+			    else{
+			    	$('.goToInputsDiv').hide(300);
+			    	$(".fc-goTo-button").html('<i class="fa fa-arrow-right"></i> GO TO');
+			    	flag=true;
+				    }	         
+		        }
+		}
+
+		},
+	
     header:{
      left:'prev,next today',
      center:'title',
-     right:'month,agendaWeek,agendaDay'
+     right:'goTo,month,agendaWeek,agendaDay'
     },
     events: 'plugins/calendar/load.php',
     selectable:true,
@@ -99,7 +121,8 @@
   </div>
 -->
   <div class="col-md-12">
-   <div id="calendar"></div>
+   <div id="calendar">
+   </div>
   </div>
   </div>
   </div>

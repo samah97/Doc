@@ -25,7 +25,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script src="js/fullcalendar.min.js"></script>
 	
 	
 	<!--End of Calendar -->
@@ -48,5 +48,35 @@ include_once("header.php");
   
 </div>
 </div>
+
+<script>
+$(document).ready(function(){
+//$('.fc-goTo-button').append("<i class'fas fa-arrow-right'></i>");
+	//$( ".fc-goTo-button" ).add( "i" ).addClass( "fa fa-arrow-right" );
+
+	$(".fc-goTo-button").html('<i class="fa fa-arrow-right"></i> GO TO');
+	
+	var array=['D','M','Y'];
+	
+	$("<div class='goToInputsDiv'></div>").insertAfter($(".fc-goTo-button"));
+	//for(var i=1;i<=3;i++)
+	$(".goToInputsDiv").append("<input type='date' class='goToInput'/>");
+	$(".goToInputsDiv").append("<button name='goToDate' class='btn goToBtn'> Go </button>");
+	
+
+	$('.goToBtn').click(function(){
+		var goTo=$('.goToInput').val();
+		if(Date.parse(goTo))
+		//var goTo=$('.goToInput').val();
+		$('#calendar').fullCalendar('gotoDate',goTo);
+		else alert('Invalid Date');
+		});
+
+	
+
+});
+</script>
+
+
 </body>
 </html>

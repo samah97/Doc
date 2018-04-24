@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/measurements.css">
 
 	<script type="text/javascript" href="js/main.js"></script>
+	
 	<!--Slick-->
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick/slick-theme.css"/>
@@ -20,6 +21,10 @@
 	<script type="text/javascript" src="plugins/slick/slick/slick.min.js"></script>
 	<!--End -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Zoom Plugin -->
+<script src="plugins/jquery.elevatezoom.js" type="text/javascript"></script>
+	<!-- End of Zoom -->
 
 <?php
 include_once "header.php";
@@ -150,16 +155,28 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 	</div>
 
 	<div class="row">
-		<div class="col-md-12 text-center">
-			<h4>Add A Medical Image</h4>
+		<div class="col-md-12">
+			<h4>Add A Medical Image:</h4>
 		</div>
-		<form>
-		<div class="form-group col-md-4 col-md-offset-4">
-			<input type='file' class='form-control' name='image-upload'>
-			<input type='submit' name='upload' class='form-control'/>
-		</div>
-		</form>
+<form id='measurementUploadForm' method="post" enctype="multipart/form-data">
+    <div class="text-center">
+    <p class="text-center text-upload">Select image to upload:</p>
+    <input type="file" name="image-upload" id="image-upload" class="image-upload">
+    
+    <label for="image-upload" class="input-label"><i class="fa fa-upload"></i> Choose a file</label>
+    <br/>
+    <button class="btn btn-green"   id='measurementUpload'> Upload Image</button>
+    </div>
+</form>
 
+	</div>
+	
+	<div class="row">
+	
+	<div class="col-md-12">
+<img id="zoom_01" class="uploaded-image"  />
+	</div>
+	
 	</div>
 	
 </div>
@@ -189,10 +206,54 @@ $('.vaccinations-slider').slick({
 
 
 });
+
+
+$('.image-upload').change(function(){
+
+var fileName=$('.image-upload')[0].files[0].name
 	
-})
+$('.input-label').html( fileName);
+});
+
+
+
+	 $("#measurementUploadForm").on('submit', function(e){
+	        e.preventDefault();
+	        $.ajax({
+	            type: 'POST',
+	            url: 'upload.php',
+	            data: new FormData(this),
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+
+	            success: function(msg){
+					$('.uploaded-image').attr('src',msg);
+					$('.uploaded-image').attr('data-zoom-image',msg);
+					$('#measurementUpload').html('Upload Another');
+					$('.uploaded-image').css('display','block');
+					 $('html, body').animate({
+				         scrollTop: $(".uploaded-image").offset().top
+				     }, 1000);
+				     $('#toAdd').html('$("#zoom_01").elevateZoom();');
+				     
+	            }
+	        });
+	    });
+
+
+
+
+
+
+
+});
+
+
+	 
 
 </script>
+<script id="toAdd"></script>
 	<?php
 	if(isset($_REQUEST['add'])){
 		print_r($_REQUEST);
@@ -201,4 +262,8 @@ $('.vaccinations-slider').slick({
 	
 	
 	
+	
+	
+	
 	?>
+	

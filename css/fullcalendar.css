@@ -1458,4 +1458,36 @@ height:25px;
 .fc td:hover{
 	cursor:pointer;
 }
+.fc-goTo-button{
+	background:#3ab53a;
+	color:white;
+	font-style:italic;
+	margin-right:6px !important;
+}
+.fa-arrow-right:before{
+	margin-right:7px;
+	
+}
+
+.fc-goTo-button:hover,
+.fc-goTo-button:focus
+{
+outline:0px;	
+}
+
+.goToInputsDiv{
+display:none;
+}
+
+.goToInput{
+	width:150px;
+	margin-right:6px !important;
+	height:29px;
+}
+
+.goToBtn{
+	margin-right:6px !important;
+	color:white;
+	background-color:#b1b1b1;
+}
 

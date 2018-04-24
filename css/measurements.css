@@ -146,3 +146,51 @@ margin-bottom: 20px;
 	font-weight: normal;
 	font-style: italic;
 }
+
+
+/* File Input */
+
+.image-upload{
+		width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input-label{
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    background-color: #d03b3b;
+    display: inline-block;
+    padding: 6px;
+}
+
+.input-label:focus,
+.input-label:hover{
+    cursor: pointer;
+    box-shadow: 4px 1px 9px 2px #828282;
+}
+
+.input-label:focus{
+	outline: 2px dotted black;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+/*End of File Input */
+
+
+/* Uploaded Image */
+
+.uploaded-image{
+	display:none;
+	max-height:70%;
+	max-width:60%;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top:20px;
+}
+
+
