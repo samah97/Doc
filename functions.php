@@ -29,9 +29,10 @@ function select($table,$where){
 function selectUser($userName,$pass){
     
     $sql= mysqli_prepare("SELECT * FROM users WHERE username= ?");
-    
-    
+       
 }
+
+
 
 
 

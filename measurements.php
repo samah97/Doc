@@ -22,6 +22,14 @@
 	<!--End -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
+	<!-- Alertify Plugin -->
+	<script src="plugins/alertify/alertify.js"></script>
+
+	<link rel="stylesheet" href="plugins/alertify/css/alertify.min.css" />
+
+	<link rel="stylesheet" href="plugins/alertify/css/themes/default.min.css" />
+	<!-- End -->
+	
 	<!-- Zoom Plugin -->
 <script src="plugins/jquery.elevatezoom.js" type="text/javascript"></script>
 	<!-- End of Zoom -->
@@ -63,7 +71,7 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 	
 	<div class="row">
 		<div class="col-sm-12  col-md-6 ">
-		<form method="post" name="measurements">
+		<form method="POST" name="measurements" id="add-measurement">
 		<div class="form-group">
 		<table class="table">
 		 <tr>
@@ -78,8 +86,8 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 			if($row_res_patient['dob']<date('Y-m-d')){
 			?>
 				<tr>
-					<td><label for="c">Coronical: </label>
-					<td><input type="number" class="form-control input-sm" name="coronical" id="c">
+					<td><label for="c">Head Diameter: </label>
+					<td><input type="number" class="form-control input-sm" name="head-diameter" id="c">
 			<?php
 			}
 			?>
@@ -183,6 +191,9 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 </div>
 </div>
 
+
+
+
 <script>
 $(document).ready(function(){
 
@@ -217,11 +228,11 @@ $('.input-label').html( fileName);
 
 
 
-	 $("#measurementUploadForm").on('submit', function(e){
+	 $("#measurementUploadForm").submit(function(e){
 	        e.preventDefault();
 	        $.ajax({
 	            type: 'POST',
-	            url: 'upload.php',
+	            url: 'assets/upload.php',
 	            data: new FormData(this),
 	            contentType: false,
 	            cache: false,
@@ -235,13 +246,41 @@ $('.input-label').html( fileName);
 					 $('html, body').animate({
 				         scrollTop: $(".uploaded-image").offset().top
 				     }, 1000);
-				     $('#toAdd').html('$("#zoom_01").elevateZoom();');
+				     $('#zoom-script').html('$("#zoom_01").elevateZoom();');
 				     
 	            }
 	        });
 	    });
 
 
+	$("#add-measurement").submit(function(e){
+	
+		 e.preventDefault();
+		 var formData=$("#add-measurement").serialize();
+		$.ajax({
+			type:'POST',
+			url:'assets/addMeasurement.php',
+			data:formData,
+		success:(function(response){
+			alertify.alert(response);
+			alertify.defaults.glossary.title='Success!';
+			
+			
+
+			}),
+
+		error:(function (response){
+			alertify.alert(response);
+			alertify.defaults.glossary.title='Error!';
+			a
+
+			})
+
+			})
+		
+
+
+		});
 
 
 
@@ -253,14 +292,13 @@ $('.input-label').html( fileName);
 	 
 
 </script>
-<script id="toAdd"></script>
+<script id="zoom-script"></script>
+
+
 	<?php
-	if(isset($_REQUEST['add'])){
-		print_r($_REQUEST);
-		$ins_meas=exec_query("insert into measurements values(null,".$_SESSION['patient_id'].",".$_REQUEST['height'].",".$_REQUEST['weight'].",".$_REQUEST['coronical']." )");	
-	}
-	
-	
+
+		//$ins_meas=exec_query("insert into measurements values(null,".$_SESSION['patient_id'].",".$_REQUEST['height'].",".$_REQUEST['weight'].",".$_REQUEST['coronical']." )");	
+
 	
 	
 	

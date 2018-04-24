@@ -1,6 +1,6 @@
 <?php 
 
-include_once 'functions.php';
+include_once '../functions.php';
 
 class Measurements{
     
@@ -21,7 +21,32 @@ class Measurements{
             return 0;
     }
     
-    
+    public static function insertMeasurement($patientId,$height,$weight,$headDiameter){
+        
+        $today=date('Y-m-d');
+        $sql="insert into measurements(date_of_meas,patient_id,height,weight,head_diameter)
+                values (?,?,?,?,?)";
+        
+        $con=mysqli_connect(host,user,pwd,dbname);
+        $stmt=$con->prepare($sql);
+        
+        $stmt->bind_param("siddd",$today,$patientId,$height,$weight,$headDiameter);
+        $stmt->execute();
+        
+        $stmt->close();
+        $con->close();
+        
+        if($stmt)
+            return 1;
+        else 
+            return 0;
+        
+
+        
+       
+        
+    }
+      
     
 }
 
