@@ -1,3 +1,6 @@
+
+body{margin-bottom:100px;}
+
 .patient-name h3{
 	margin-top:0px;
 }
@@ -68,7 +71,6 @@ margin-bottom: 20px;
     position: relative;
     padding-left: 10px;
     /*margin-bottom: 12px;*/
-    cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     -webkit-user-select: none;
@@ -87,14 +89,14 @@ margin-bottom: 20px;
 
 .checkbox-container:hover{
 		background-color: #adaaaa;
-	cursor:pointer;
+	
 }
 
 /* Hide the browser's default checkbox */
 .checkbox-container input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
+    
 }
 
 /* Create a custom checkbox */
@@ -146,3 +148,62 @@ margin-bottom: 20px;
 	font-weight: normal;
 	font-style: italic;
 }
+
+
+/* File Input */
+
+.image-upload{
+		width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input-label{
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    background-color: #d03b3b;
+    display: inline-block;
+    padding: 6px;
+}
+
+.input-label:focus,
+.input-label:hover{
+    cursor: pointer;
+    box-shadow: 4px 1px 9px 2px #828282;
+}
+
+.input-label:focus{
+	outline: 2px dotted black;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+/*End of File Input */
+
+
+/* Uploaded Image */
+
+.uploaded-image{
+	display:none;
+	max-height:70%;
+	max-width:60%;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top:20px;
+}
+
+.lbl_vacc{
+	
+	margin-bottom:0px;
+	
+}
+
+.seperator{
+	margin-bottom:30px;
+	
+}
+
+

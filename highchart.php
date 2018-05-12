@@ -2,7 +2,7 @@
 include_once("functions.php");
 // session_start();
 
-$query=exec_query("select * from measurements where Patient_id=".$_SESSION['patient_id']." order by date_of_meas asc");
+$query=exec_query("select * from measurements where patient_id=".$_SESSION['patient_id']." order by date_of_meas asc");
 $data_height=array();
 $data_max=array();
 $data_min=array();
@@ -12,7 +12,7 @@ $min=50;
 
 while($row=mysqli_fetch_assoc($query)){
 	$dates[]="'".$row['date_of_meas']."'";
-	$data_height[]=$row['Height'];
+	$data_height[]=$row['height'];
 	$data_max[]=$max;
 	$data_min[]=$min;
 	$max+=10;

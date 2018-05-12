@@ -3,7 +3,7 @@ session_start();
 include_once("functions.php");
 
 if(isset($_REQUEST['del_id'])){
-	$del_med=exec_query("delete from temp_pres where id=".$_REQUEST['del_id']);
+	$del_med=exec_query("delete from temp_presc where id=".$_REQUEST['del_id']);
 }
 
 $get_doctor_details=exec_query("select * from doctor where doc_id=".$_SESSION['doc_id']);
@@ -47,7 +47,7 @@ while($temp_presc_result=mysqli_fetch_assoc($get_temp_presc)){
 
 	echo "<tr><td><div class='data-rows'>
 	".$i.")<table><tr><td colspan=2><b>".$med_name_result['name']."</b>
-	<td> <a href='?del_id=".$temp_presc_result['id']."'><button class='btn btn-danger' align-right >X</button></a>
+	<td> <a href='?del_id=".$temp_presc_result['id']."'><button class='btn btn-danger pull-right'  >X</button></a>
 	<tr><td><td>".$temp_presc_result['pill']." Pill(s)
 	<tr><td><td>".$temp_presc_result['time']."<tr>
 	";

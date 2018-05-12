@@ -6,6 +6,8 @@ function exec_query($sql){
     
     $con=mysqli_connect(host,user,pwd,dbname);
     
+    mysqli_set_charset($con,"utf8");
+    
     if(!$con)
         die ("Error while connecting".mysqli_error($con));
         
@@ -29,11 +31,10 @@ function select($table,$where){
 function selectUser($userName,$pass){
     
     $sql= mysqli_prepare("SELECT * FROM users WHERE username= ?");
-    
-    
-    
-    
+       
 }
+
+
 
 
 

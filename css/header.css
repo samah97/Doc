@@ -39,3 +39,9 @@
 .dropdown-menu{
 	z-index: 999;
 	}
+
+	
+button.language{
+	background: none;
+    border: none;
+}

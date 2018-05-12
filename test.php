@@ -30,5 +30,13 @@ echo "difference " . $interval->y . " years, " . $interval->m." months, ".$inter
 echo "difference " . $interval->days . " days ";
 */
 
-echo "<label class='container'><span class='test'>Hey</span></label>";
+
 ?>
+<script  type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="plugins/jquery.elevatezoom.js" type="text/javascript"></script>
+
+<img id="zoom_01" src="images/Samah_Daou.jpg" data-zoom-image="images/Samah_Daou.jpg"/>
+
+<script>
+$("#zoom_01").elevateZoom(); 
+</script>

@@ -38,7 +38,7 @@ break;
 
 
 
-<body>
+<body dir="ltr">
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -74,8 +74,22 @@ break;
 	</ul>
 	<div class="pull-right">
       <p><a href="operations.php?action=logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></p>
+      <form method="post">
+      <p>
+      <button id="EN" name="lang" class="language" type="submit" value="en">EN</button>
+      <button id="AR" name="lang" class="language" type="submit" value="ar">AR</button>
+      </p>
+      
+      </form>
 	</div>
 	</div>
-
+ 
   </div>
 </nav>
+
+<?php 
+if(isset($_REQUEST['lang']))
+{
+    $_SESSION['lang']=$_REQUEST['lang'];
+}
+?>
