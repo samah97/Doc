@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="css/new_presc.css">
 	<!--<link rel="stylesheet" type="text/css" href="css/patient_info.css">-->
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
 	
 <!--Custom Select box--> 
@@ -178,8 +178,8 @@ function print_frame() {
 <!--End Of Modal-->	  
  
 </div>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<script defer src="js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+<script defer src="js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
 
 <?php
 if(isset($_REQUEST['add'])){
@@ -190,7 +190,7 @@ if(isset($_REQUEST['add'])){
 	 $ins_pres=exec_query("insert into temp_presc(session_id,patient_id,med_id,pill,time,description) values ('".session_id()."',".$_SESSION['patient_id'].",".$_REQUEST['mnames'].",".$_REQUEST['nbr_pills'].",'".substr($checked, 0, -3)."','".$_REQUEST['desc']."')");		
 	}
 if(isset($_REQUEST['reset'])){
-	$reset=exec_query("delete from temp_pres where session_id=".$_SESSION['patient-id']);
+	$reset=exec_query("delete from temp_presc where session_id=".$_SESSION['patient-id']);
 }
 // if(isset($_REQUEST['add_med'])){
 	// $row=exec_query("insert into medicine(Name,Standard,Description) values('".$_REQUEST['med_name']."','".$_REQUEST['standard']."','".$_REQUEST['med_desc']."')");

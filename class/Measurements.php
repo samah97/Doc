@@ -1,6 +1,7 @@
 <?php 
 
 include_once '../functions.php';
+session_start();
 
 class Measurements{
     
@@ -40,11 +41,28 @@ class Measurements{
             return 1;
         else 
             return 0;
-        
-
-        
        
         
+    }
+    
+    public static function insertVaccination($vacc_id,$date){
+        $patientId=$_SESSION['patient_id'];
+        
+        $sql="insert into patient_vaccine(patient_id,vaccination_id,date) values (?,?,?)";
+        
+        $con=mysqli_connect(host,user,pwd,dbname);
+        $stmt=$con->prepare($sql);
+        
+        $stmt->bind_param("iis",$patientId,$vacc_id,$date);
+        $stmt->execute();
+        
+        $stmt->close();
+        $con->close();
+        
+        if($stmt)
+            return 1;
+            else
+        return 0;
     }
       
     

@@ -2,8 +2,8 @@
 include_once("functions.php");
 session_start(); 
 
-if(!isset($_REQUEST['action']))
-	header("location:main.php?action=home");
+
+	
 
 if(isset($_REQUEST['action'])){
 switch($_REQUEST['action']){
@@ -20,7 +20,16 @@ switch($_REQUEST['action']){
 				   header("location:main.php");
 	case 'view-patient':$_SESSION['patient_id']=$_REQUEST['p_id'];
 						header("location:patient_info.php");
-				   	}
+						
+	case 'changeLang':print_r($_REQUEST);
+				//header("location:".$_REQUEST['from']);
+				break;
+				
+	
 
+}
+}
+else {
+    header("location:home.php");
 }
 ?>

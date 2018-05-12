@@ -1,3 +1,6 @@
+
+body{margin-bottom:100px;}
+
 .patient-name h3{
 	margin-top:0px;
 }
@@ -68,7 +71,6 @@ margin-bottom: 20px;
     position: relative;
     padding-left: 10px;
     /*margin-bottom: 12px;*/
-    cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     -webkit-user-select: none;
@@ -87,14 +89,14 @@ margin-bottom: 20px;
 
 .checkbox-container:hover{
 		background-color: #adaaaa;
-	cursor:pointer;
+	
 }
 
 /* Hide the browser's default checkbox */
 .checkbox-container input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
+    
 }
 
 /* Create a custom checkbox */
@@ -191,6 +193,17 @@ margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
 	margin-top:20px;
+}
+
+.lbl_vacc{
+	
+	margin-bottom:0px;
+	
+}
+
+.seperator{
+	margin-bottom:30px;
+	
 }
 
 

@@ -1,7 +1,7 @@
 <?php include_once("functions.php");?>
 <html>
 <head>
-    <meta charset="utf-8"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<!-- jQuery library -->
@@ -33,6 +33,11 @@
 	<!-- Zoom Plugin -->
 <script src="plugins/jquery.elevatezoom.js" type="text/javascript"></script>
 	<!-- End of Zoom -->
+	
+	<!--Custom Select box--> 
+<link href="css/select2.min.css" rel="stylesheet" />
+<script src="js/select2.min.js"></script>
+<!-- End -->
 
 <?php
 include_once "header.php";
@@ -107,51 +112,76 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 		<h4>Vaccinations</h4>
 		<div class="vaccinations-slider">
 		<?php
-			$get_vaccanies=exec_query("select * from vaccination order by vacc_order asc ");
 
-			while($get_vaccanies_result=mysqli_fetch_assoc($get_vaccanies)){
+			$get_vaccines=exec_query("select DISTINCT * from vaccination v LEFT OUTER JOIN patient_vaccine pv ON pv.vaccination_id=v.vacc_id order by vacc_order asc ");
+			
+			while($get_vaccines_result=mysqli_fetch_assoc($get_vaccines)){
 		?>
 		<label class="checkbox-container vaccinations-li">
 
 			<?php
 			$row="";
-
+            
 			if($_SESSION['lang']=="en"){
-				$row.=$get_vaccanies_result['vacc_name_en'];
+				$row.=$get_vaccines_result['vacc_name_en'];
 
-				if($get_vaccanies_result['from']>0){
+				if($get_vaccines_result['from']>0){
 				$row.= "&nbsp;&nbsp;<span class='vacc-info small'>(";
-				$row.=$get_vaccanies_result['from']." &rarr;".$get_vaccanies_result['to']."&nbsp;";
-				$row.=(strcmp($get_vaccanies_result['type'],"m")==0)?'months':'years';
+				$row.=$get_vaccines_result['from']." &rarr;".$get_vaccines_result['to']."&nbsp;";
+				$row.=(strcmp($get_vaccines_result['type'],"m")==0)?'months':'years';
 				$row.=")</span>";
 				}
 				else{
 
 					$row.="&nbsp;&nbsp;<span class='vacc-info small'>(";
-					$row.=$get_vaccanies_result['to']."&nbsp;";
-					$row.=(strcmp($get_vaccanies_result['type'],"m")==0)?'months':'years';
+					$row.=$get_vaccines_result['to']."&nbsp;";
+					$row.=(strcmp($get_vaccines_result['type'],"m")==0)?'months':'years';
 					$row.=")</span>";
 				}
 
 				echo $row;
 				}
-			else
-				echo $get_vaccanies_result['vacc_name_ar'];
+			if($_SESSION['lang']=="ar"){
+			    
+			    $row.=$get_vaccines_result['vacc_name_ar'];
+			    
+			    if($get_vaccines_result['from']>0){
+			        $row.= "&nbsp;&nbsp;<span class='vacc-info small'>(";
+			        $row.=$get_vaccines_result['from']." &rarr;".$get_vaccines_result['to']."&nbsp;";
+			        $row.=(strcmp($get_vaccines_result['type'],"m")==0)?'أشهر':'سنين';
+			        $row.=")</span>";
+			    }
+			    else{
+			        
+			        $row.="&nbsp;&nbsp;<span class='vacc-info small'>(";
+			        $row.=$get_vaccines_result['to']."&nbsp;";
+			        $row.=(strcmp($get_vaccines_result['type'],"m")==0)?'أشهر':'سنين';
+			        $row.=")</span>";
+			    }
+			    echo $row;
+			    
+			    
+			}
 		 
 		 ?>
 
 			</li>
-		<input type="checkbox">
+			
+		<input type="checkbox"  disabled=true <?php if($get_vaccines_result["vaccination_id"]!=null) echo "checked";?>>
 		<span class="checkmark"></span>
 
 		</label>
-		<?php } ?>
+		<?php  } ?>
 		</div>	
 		</div>
 		</div>
 		<div class="col-md-12">
 		<div class="pull-right">
-			<p class="view-all">View All</p>
+			<p ><span ><a href="#add_vaccination" id="add_vacc_link"><button class="btn">Add New</button></a></span>
+			
+			<span class="view_all"> View All</span>
+			
+			</p>
 		</div>
 		</div>
 
@@ -184,6 +214,73 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 	<div class="col-md-12">
 <img id="zoom_01" class="uploaded-image"  />
 	</div>
+	
+	</div>
+	
+	<div class="row">
+	<div class="col-md-12 grey-line"></div>
+	</div>
+	
+	<div class="row" id="add_vaccination">
+	<form id="vaccination_form" method="post">
+	<div class="col-md-12">
+	Add Vacination
+	</div>
+	
+	
+	<div class="col-md-3 col-md-offset-4">
+	<label for="vacc_name" class="lbl_vacc" style="margin-bottom:15px;">Vaccination Name</label>
+	</div>
+	<div class="col-md-4">
+
+		<select class="js-example-basic-single" name="vacc_name" id="vacc_name" style="width:100%;">
+		<?php 
+		$get_vaccines=exec_query("select * from vaccination order by vacc_order asc");
+		while($get_vaccines_result=mysqli_fetch_assoc($get_vaccines)){
+		?>
+		<option value="<?php echo $get_vaccines_result["vacc_id"];?>">
+		<?php 
+		
+		$row="";
+		
+		if($_SESSION['lang']=="en"){
+		    $row.=$get_vaccines_result['vacc_name_en'];
+		    
+		     
+		    echo $row;
+		}
+		else{
+		    $row.=$get_vaccines_result['vacc_name_ar'];
+		    
+            echo $row;
+		    
+		}
+		
+		
+		?>
+		</option>
+		<?php }?>
+		</select>
+	</div>
+	<div class="seperator"></div>
+	<div class="col-md-3 col-md-offset-4">
+	<label for="vacc_date" class="lbl_vacc">Date of Vaccination</label>
+	</div>
+	<div class="col-md-4 ">
+	<input type="date" name="vacc_date" class="form-control" id="vacc_date"/>
+	</div>
+	<div class="text-center col-md-12">
+	<button type="submit" class="btn"  id="add_vaccination_btn" style="margin-top:15px;">
+	Add Vaccination
+	</button>
+	</div>
+	
+	
+	
+	</form>
+	</div>
+	
+	
 	
 	</div>
 	
@@ -221,11 +318,10 @@ $('.vaccinations-slider').slick({
 
 $('.image-upload').change(function(){
 
-var fileName=$('.image-upload')[0].files[0].name
+var fileName=$('.image-upload')[0].files[0].name;
 	
 $('.input-label').html( fileName);
 });
-
 
 
 	 $("#measurementUploadForm").submit(function(e){
@@ -239,6 +335,7 @@ $('.input-label').html( fileName);
 	            processData:false,
 
 	            success: function(msg){
+		            
 					$('.uploaded-image').attr('src',msg);
 					$('.uploaded-image').attr('data-zoom-image',msg);
 					$('#measurementUpload').html('Upload Another');
@@ -247,8 +344,12 @@ $('.input-label').html( fileName);
 				         scrollTop: $(".uploaded-image").offset().top
 				     }, 1000);
 				     $('#zoom-script').html('$("#zoom_01").elevateZoom();');
+				     alertify.alert("Image Uploaded");
 				     
-	            }
+	            },
+            error: function(msg){
+				alertify.alert(msg);
+                }
 	        });
 	    });
 
@@ -271,8 +372,8 @@ $('.input-label').html( fileName);
 
 		error:(function (response){
 			alertify.alert(response);
-			alertify.defaults.glossary.title='Error!';
-			a
+			c
+			
 
 			})
 
@@ -282,8 +383,37 @@ $('.input-label').html( fileName);
 
 		});
 
+	$("#add_vacc_link").click(function(e) {
+	    e.preventDefault();
+	    var aid = $(this).attr("href");
+	    $('html,body').animate({scrollTop: $(aid).offset().top},1000);
+	});
 
 
+	$("#vaccination_form").on("submit",function(e){
+		e.preventDefault();
+		var form=$("#vaccination_form").serialize();
+		$.ajax({
+			type:"POST",
+			url:"assets/methods.php?m=addVacination",
+			data:form,
+			success:function(result){
+				alertify.alert("Success: "+result);
+				alertify.defaults.glossary.title='Success!';
+				},
+			error:function(result){
+				alertify.alert("Error: "+result);
+				alertify.defaults.glossary.title='Error!';
+				}
+			});
+
+			
+		});
+
+	    $('.js-example-basic-single').select2();
+
+	    document.getElementById("vacc_date").valueAsDate = new Date()
+		
 
 
 });

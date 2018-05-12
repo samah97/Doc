@@ -1,8 +1,8 @@
 <?php
-include 'functions.php';
-include 'class/Measurements.php';
+include '../functions.php';
+include '../class/Measurements.php';
 
-session_start();
+//session_start();
 
 
 $supportedExtensions=array("jpg","jpeg","png");
@@ -30,7 +30,7 @@ if(isset($_FILES['image-upload'])){
       
       
       
-      if(move_uploaded_file($tmp, $path.$newName)){
+      if(move_uploaded_file($tmp, "../".$path.$newName)){
       $measurements=new Measurements();
       $inserted= $measurements-> insertImage($newName);       
           //header("location:measurements.php");

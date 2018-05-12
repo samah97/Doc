@@ -6,6 +6,8 @@ function exec_query($sql){
     
     $con=mysqli_connect(host,user,pwd,dbname);
     
+    mysqli_set_charset($con,"utf8");
+    
     if(!$con)
         die ("Error while connecting".mysqli_error($con));
         
