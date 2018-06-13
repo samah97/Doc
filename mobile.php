@@ -132,7 +132,7 @@ echo "<button type='button' class='btn btn-danger' onclick=Delete(".$row['tip_id
 </div>
 <div class="col-md-6">
 <label for="notify-image">Image:</label>
-<input type="text" id="notify-image" name="notify-image" class="form-control"/>
+<input type="file" id="notify-image" name="notify-image" class="form-control"/>
 </div>
 <div class="col-md-12">
 <label for="notify-description">Description:</label>

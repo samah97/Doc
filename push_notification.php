@@ -41,7 +41,7 @@ if($result==FALSE){
  return $result;
 }
 if(isset($_POST['btnnotification'])){	
-if (isset($_FILES['picture'])) {
+if (isset($_FILES['notify-image'])) {
      $repnot="NOTIFICATIONS";
      if (is_dir($repnot)==FALSE) {
          if (mkdir($repnot)==false) {
@@ -49,41 +49,47 @@ if (isset($_FILES['picture'])) {
            exit; }
           }
      if (chdir($repnot)) {
-       $rep = str_replace(" ","_",$_POST['title']);
+       $rep = str_replace(" ","_",$_POST['notify-title']);
        if (is_dir($rep)==FALSE) {  // repertoire n'existe pas alors creation
          if (mkdir($rep)==false) {
            echo "<br>Problem when creating directory " . $rep;
            exit; }
           }
         if (chdir($rep)) {
-            if (strlen($_FILES["picture"]["name"])>0) {
-              $d2=explode(".",$_FILES["picture"]["name"]); 
-              echo "<br>Copie du fichier : " .   $_FILES["picture"]["name"] . "  bien effectuee";
-              copy($_FILES["picture"]["tmp_name"], $_FILES["picture"]["name"]);
+            if (strlen($_FILES["notify-image"]["name"])>0) {
+              $d2=explode(".",$_FILES["notify-image"]["name"]); 
+              echo "<br>Copie du fichier : " .   $_FILES["notify-image"]["name"] . "  bien effectuee";
+              copy($_FILES["notify-image"]["tmp_name"], $_FILES["notify-image"]["name"]);
             }
        }
 	 }
 	 //$filename="https://mubsbaccontacts.000webhostapp.com/fcm/".$repnot."/".$rep."/".$_FILES["picture"]["name"];
-	 $filename="https://localhost/projects/Doc/fcm/".$repnot."/".$rep."/".$_FILES["picture"]["name"];
+	 $filename="https://localhost/projects/Doc/fcm/".$repnot."/".$rep."/".$_FILES["notify-image"]["name"];
 }
 $con=mysqli_connect("localhost","root","","doctor");
-$sql="Select token from users";
+$sql="Select token from usersTest";
+
 $result=mysqli_query($con,$sql);
+
 $tokens=array();
 if(mysqli_num_rows($result)>0){
 	while($row=mysqli_fetch_assoc($result)){
 		$tokens[]=$row["token"];
 	}
 }
-$title=$_POST['title'];
-$summary=$_POST['summary'];
+
+$title=$_POST['notify-title'];
+$summary=$_POST['notify-summary'];
 $picture=$filename;
-$description=$_POST['description'];
+$description=$_POST['notify-description'];
 $query="INSERT INTO Notifications (title,summary,picture,description) VALUES ('$title','$summary','$picture','$description');";
-mysqli_query($con,$query);
+//$query="INSERT INTO Notifications (title,summary,description) VALUES ('$title','$summary','$description');";
+$insert=mysqli_query($con,$query);
+print_r($insert);
 mysqli_close($con);
 
 $message_status=send_notification($tokens,$title,$summary,$picture,$description);
+
 echo $message_status;
 }
 
