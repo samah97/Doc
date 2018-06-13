@@ -16,7 +16,10 @@ function exec_query($sql){
         if(!$r)
             die("Error in query: ".$sql." Error: ".mysqli_error($con));
             
+            
+            
             mysqli_close($con);
+            
         return $r;
 }
 

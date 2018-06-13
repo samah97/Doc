@@ -89,7 +89,7 @@ function print_frame() {
 			
 			?>
 			</select>
-			<button class="btn btn-success" data-toggle="modal" data-target="#new_med"><i class="fa fa-plus"></i></button>
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#new_med"><i class="fa fa-plus"></i></button>
 			
 		<tr>
 			<td><label for="nbr_pill">Number of Pills:</label><td><input type="number" required class="form-control input-sm" min=1 value=1 name="nbr_pills" id="nbr_pill">
@@ -120,7 +120,7 @@ function print_frame() {
 		<button class="btn" name="reset">Reset</button>
 		<tr>
 		<td style="display:inline-block;"><button class="btn btn-success" name="printf" id="printf"  onclick="print_frame()">Print Preview</button></td>
-		<td ><button class="btn btn-success ">Save</button>
+		<td ><button class="btn btn-success " name="save">Save</button>
 	</table>
 	</form>
  </div>
@@ -131,13 +131,13 @@ function print_frame() {
  <div id="new_med" class="modal fade" data-backdrop="false" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-	
+	<form method="post">
  <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add New Medicine</h4>
 </div>
 	 <div class="modal-body">
-        <form method="post">
+        
 		<div class="form-group">
 			<div class="row">
 				<div class="col-sm-4">
@@ -149,12 +149,27 @@ function print_frame() {
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<label for="stndrd">Standard:</label>
+					<label for="standard">Standard:</label>
 				</div>
 				<div class="col-sm-8">
 					<input type="number" class="form-control" name="standard" required>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Medicine Type:</label>
+				</div>
+				<div class="col-sm-8">
+					<select name="medicine_type" class="form-control">
+					<?php $get_types=exec_query("select * from types");
+					      while($row=mysqli_fetch_assoc($get_types))
+					      echo "<option value=".$row["type_id"].">".$row["type_name"]."</option>";
+					?>
+							
+					</select>
+				</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-sm-4">
 					<label for="med_desc">Description</label>
@@ -189,12 +204,28 @@ if(isset($_REQUEST['add'])){
 	$checked.=$check." / ";
 	 $ins_pres=exec_query("insert into temp_presc(session_id,patient_id,med_id,pill,time,description) values ('".session_id()."',".$_SESSION['patient_id'].",".$_REQUEST['mnames'].",".$_REQUEST['nbr_pills'].",'".substr($checked, 0, -3)."','".$_REQUEST['desc']."')");		
 	}
+	if(isset($_REQUEST['save'])){
+	    
+	    
+	    $query="select * from temp_presc where session_id='".session_id()."'";
+	    $getPrescriptions=exec_query($query);
+	    $query="insert into prescription(doc_id,patient_id,med_id,pill,time,description,prescription_date) values ";
+	    while($row=mysqli_fetch_assoc($getPrescriptions)){
+	        $query.="(".$_SESSION['doc_id'].",".$_SESSION['patient_id'].",".$row['med_id'].",".$row['pill'].",'".$row['time']."','".$row['description']."','".date('Y-m-d')."'),";
+	    }
+	    $query=substr($query,0,-1);
+	    $insert=exec_query($query);
+        $delete=exec_query("delete from temp_presc where session_id='".session_id()."'");
+	    
+	    
+	}
+	
 if(isset($_REQUEST['reset'])){
-	$reset=exec_query("delete from temp_presc where session_id=".$_SESSION['patient-id']);
+	$reset=exec_query("delete from temp_presc where session_id='".$_SESSION['patient_id']."'");
 }
-// if(isset($_REQUEST['add_med'])){
-	// $row=exec_query("insert into medicine(Name,Standard,Description) values('".$_REQUEST['med_name']."','".$_REQUEST['standard']."','".$_REQUEST['med_desc']."')");
-// }
+ if(isset($_REQUEST['add_med'])){
+	 $row=exec_query("insert into medicine(Name,Standard,type_id,Description) values('".$_REQUEST['med_name']."','".$_REQUEST['standard']."',".$_REQUEST['medicine_type'].",'".$_REQUEST['med_desc']."')");
+ }
 
 
 

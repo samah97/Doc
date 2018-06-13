@@ -26,7 +26,16 @@
 	
 	
 	<!--End of Calendar -->
-	
+		
+	<!-- Alertify Plugin -->
+	<script src="plugins/alertify/alertify.js"></script>
+
+	<link rel="stylesheet" href="plugins/alertify/css/alertify.min.css" />
+
+	<link rel="stylesheet" href="plugins/alertify/css/themes/default.min.css" />
+	<link rel="stylesheet" href="plugins/alertify/css/themes/semantic.css" />
+	<link rel="stylesheet" href="plugins/alertify/css/themes/bootstrap.css" />
+	<!-- End -->
 <link href="css/select2.min.css" rel="stylesheet" />
 <script src="js/select2.min.js"></script>
 <script src="js/script.js"></script>
@@ -41,19 +50,36 @@ include_once("header.php");
 	<body>
 	
 		
-<div class="container">
+<div class="container" <?php if($_SESSION['lang']=='ar') echo "dir='rtl'"; ?>>
   <div class="row">
-	<div class="col-sm-12">
-	<input type="text" onkeyup="search_patients()" id='search' class="srch-patients" placeholder="Search For Patient">
+	<div class="col-sm-10 ">
+	<i class="fa fa-search search-icon"></i>
+	<input type="text" onkeyup="search_patients()" id='search' class="srch-patients" <?php if($_SESSION['lang']=='ar') echo "placeholder='بحث'"; else?>placeholder="Search For Patient">
+	</div>
+	<div class="col-md-2">
+	<button class="btn btn-success pull-right" id="add-name"><?php if($_SESSION['lang']=='ar') echo "اضف اسما"; else echo "Add Patient";?></button>
 	</div>
   </div>
   <div class="row">
 	<div class="col-sm-12">
-  <table class="table table-bordered patients" id="patients-table">
+  <table class="table table-bordered patients" id="patients-table"  >
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Case</th>
+      	<?php if($_SESSION['lang']=='en'){?>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Middle Name</th>
+        <th>Phone Number</th>
+        <th>Landline</th>
+        <?php }
+        else{
+        ?>
+        <th>الاسم</th>
+        <th>شهرة</th>
+        <th>اسم الأب</th>
+        <th>الخليوي</th>
+        <th>هاتف</th>
+        <?php }?>        
       </tr>
     </thead>
     <tbody>
@@ -61,14 +87,63 @@ include_once("header.php");
 		<?php
 		$get_patients_query=exec_query("select * from patients where Doc_id=".$_SESSION["doc_id"]);
 		while($get_patient_result=mysqli_fetch_array($get_patients_query)){
-			echo "<tr><td value=".$get_patient_result["patient_id"]."><a href='operations.php?p_id=".$get_patient_result["patient_id"]."&action=view-patient'>".$get_patient_result["Fname"]." ".$get_patient_result["Lname"]."</a><td>".$get_patient_result["case"];
+			echo "<tr onclick=goTo(".$get_patient_result["patient_id"].")><td value=".$get_patient_result["patient_id"].">".$get_patient_result["Fname"]."</td><td>".$get_patient_result["Lname"]."<td>".$get_patient_result['Mname']."<td>".$get_patient_result["cell"]."<td>".$get_patient_result['landline']."</tr>";
 		}
 		?>
 	</form>
     </tbody>
   </table>
 	</div>
+
    </div>
+</div>
+<!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<?php 
+    if($_SESSION['lang']=='en'){
+    ?>
+
+
+  <!-- Modal content -->
+  <div class="modal-content">
+  <form method="post" id="patient-form" onsubmit="submitPatientForm()">
+    <span class="close">&times;</span>
+    <div class="modal-header">
+    <h2>Add Patient</h2>
+  	</div>
+  	<div class="modal-body">
+    
+    <label>First Name:</label><input type="text" class="form-control" name="patient_name" />
+    <label>Last Name:</label><input type="text" class="form-control" name="patient_lname" /> 
+    <label>Middle Name:</label><input type="text" class="form-control" name="patient_mname" />
+    <label>Gender:</label><select name="patient_gender" class="form-control">
+    					<option value="M">Male</option>
+    					<option value="F">Female</option>
+    					</select>
+    <label>Date of Birth:</label><input type="date" class="form-control" name="patient_dob" />
+    <label>Email:</label><input type="email" class="form-control" name="patient_email" >					
+	<label>Landline:</label><input type="phone" class="form-control" name="patient_landline" />		 
+    <label>Phone Number:</label><input type="phone" class="form-control" name="patient_phone" />
+    <label>Country</label><input type="text" class="form-control" name="patient_country">
+    <label>City</label><input type="text" class="form-control" name="patient_city">
+    <label>Street</label><input type="text" class="form-control" name="patient_street">
+    <label>Building</label><input type="text" class="form-control" name="patient_building">		
+    <label>Case: </label><textarea name="patient_case" class="form-control"></textarea>
+    <label>First Visit</label><input type="date" class="form-control" name="patient_first_visit" id="first-visit-date"> 
+    <label>Other Details: </label><textarea name="patient_other_details" class="form-control"></textarea>
+    
+    
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-warning pull-right">Add</button>
+    </div>
+    </form>
+  </div>
+	
+<?php }?>
 </div>
 <script>
 function search_patients() {
@@ -105,6 +180,74 @@ function search_patients() {
       }
     } 
   }
+
+function goTo(id){
+	window.location.href="operations.php?p_id="+id+"&action=view-patient";
+}
+
+//Modal OPen
+//Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("add-name");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+document.getElementById("first-visit-date").valueAsDate = new Date();
+
+   
+//override defaults
+
+alertify.defaults.transition = "zoom";
+alertify.defaults.theme.ok = "ui positive button";
+alertify.defaults.theme.cancel = "ui black button";
+function submitPatientForm(){
+	event.preventDefault();
+	var form=$("#patient-form").serializeArray();
+	console.log(form);
+
+    $.ajax({
+        type: 'POST',
+        url: 'assets/addPatient.php',
+        data: form,
+
+
+        success: function(msg){
+            //console.log(msg);
+			if(msg==1){
+			
+			alertify.confirm("Patient Added",function(){location.reload();});
+				}
+			else 
+				alertify.alert("Something went wrong");
+		     
+        },
+    error: function(msg){
+		alertify.alert(msg);
+        }
+    });
+	
+}
+
 
 </script>
 	</body>
