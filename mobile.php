@@ -98,18 +98,19 @@ echo "<button type='button' class='btn btn-danger' onclick=Delete(".$row['tip_id
 <div id="add_tip" style='display:none'>
 <div class="col-md-12"><button class="btn pull-left" id="btn-back"><i class="fa fa-arrow-left"></i> Back</button></div>
 <div class="col-md-12">
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="form-tip">
+<input type="text" name="tip_id" style="display:none" id="tip_id"/>;
 <label>Title</label><input type="text" name="title" id="title" class="form-control">
 <label>Description</label><textarea name="description" id="description" class="form-control" ></textarea>
 <label>Image</label>
 <div class="image-holder">
 <img id="tip-image" />
 </div>
-<input type="file" name="image" id="image-upload" class="image-upload" style="display:block">
-<label for="image-upload" class="input-image"><i class="fa fa-upload"></i> Upload Images</label>
+<input type="file" name="image" id="image-upload" class="image-upload"  style="display:block" />
+<label for="image-upload" class="input-image"><i class="fa fa-upload"></i> Upload Images </label>
 <br>
-<label>Order</label><input type="number" name="order" id="number" class="form-control">
-<button type="submit" class="btn btn-success top_margin_20 pull-right" name="save" >SAVE</button>
+<label>Order</label><input type="number" name="order" id="order" class="form-control">
+<button type="submit"  class="btn btn-success top_margin_20 pull-right" name="save" >SAVE</button>
 </form>
 </div>
 </div>
@@ -154,6 +155,7 @@ echo "<button type='button' class='btn btn-danger' onclick=Delete(".$row['tip_id
 $('#table-tips').DataTable();
 
 $('#btn-addtip').on('click',function(){
+	<?php $action="add";?>
 $('#view_tips').css('display','none');
 $('#add_tip').css('display','block');	
 });
@@ -164,15 +166,16 @@ $('#btn-back').on('click',function(){
 	
 	});
 
+
 function Edit(id){
-	
-
-
+	action="edit";
 	var array=[];
+	document.cookie = "myJavascriptVar = " + id;
 	  var $item =$("#row_"+id).find('td').each(function(){
 			var textval=$(this).text();
 			array.push(textval);
 		  })
+	$('#tip_id').val(id);
 	$('#title').val(array[0]);
 	$('#description').val(array[1]);
 	$('#tip-image').attr('src',"images/uploads/tips/"+array[2]);
@@ -184,6 +187,26 @@ function Edit(id){
 
 }
 
+function Delete(id){
+
+
+$.ajax({
+	type:'POST',
+	url:'assets/delete_tip.php',
+	data:{id:id},
+	success:function(response){
+		alertify.alert(response);
+		$('#row_'+id).remove();
+		//location.reload();
+		}
+});
+	
+}
+
+
+
+
+
 $('.image-upload').change(function(){
 	var reader=new FileReader();
 	reader.onload=function(e){
@@ -192,16 +215,18 @@ $('.image-upload').change(function(){
 	reader.readAsDataURL($('.image-upload')[0].files[0]);
 	});
 </script>
+
 <?php 
 if(isset($_POST['save'])){
     
     extract($_POST);
-
     
-    $uploaded=false;
+    
     $response="";
     $imageName="";
+    
     if(isset($_FILES['image'])){
+        $uploaded=false;
         $supportedExtensions=array("jpg","jpeg","png");
         
         $file=$_FILES['image'];
@@ -220,8 +245,8 @@ if(isset($_POST['save'])){
                 }
                 
                 
-                $tmp=$file['tmp_name'];  //When file is uploaded it is stored in a temporary directory for a temporary time 
-                $newName=time().".".$fileExt; 
+                $tmp=$file['tmp_name'];  //When file is uploaded it is stored in a temporary directory for a temporary time
+                $newName=time().".".$fileExt;
                 
                 
                 
@@ -234,8 +259,8 @@ if(isset($_POST['save'])){
                     $response= 'error Upload';
                     $uploaded=false;
                 }
-                    
-                    
+                
+                
             }
             else{
                 $reponse= "not supported image file";
@@ -248,20 +273,35 @@ if(isset($_POST['save'])){
         }
     }
     
-    echo "<script>alertify.alert('Image Uploaded')</script>";
-    
-    if($uploaded==true){
-       
-    $query="insert into health_tips(tip_title,tip_description,tip_image,tip_order) values ";
-    $query.="('".$title."','".$description."','".$imageName."',".$order.")";
-    
-    $insert=exec_query($query);
+    //echo $uploaded;die();
+    if($uploaded!=null && $uploaded==false){
+        die("Error Uploading image, Error: ".$uploaded );
     }
-    else {echo "<script>alertify.alert('".$response."')</script>";}
+
+    if($tip_id!=null){
+
+        $query="update health_tips set tip_title='".$title."',tip_description='".$description."',tip_image='".$imageName."',tip_order=".$order;
+        $query.=" WHERE tip_id=".$tip_id;
+        echo "<script>alertify.alert('Tip has been edited');</script>";
+
+    }
+    else {
+        $query="insert into health_tips(tip_title,tip_description,tip_image,tip_order) values ";
+        $query.="('".$title."','".$description."','".$imageName."',".$order.")";
+        echo "<script>alertify.alert('Tip Added');</script>";
+        
+    }
+    $insert=exec_query($query);
+    if(!$insert){
+        die("Error: ".$insert);
+    }    
+    
+
 }
 
-?>
 
+
+?>
 <script>
 
 

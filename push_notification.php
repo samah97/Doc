@@ -67,9 +67,16 @@ if (isset($_FILES['notify-image'])) {
 	 $filename="https://localhost/projects/Doc/fcm/".$repnot."/".$rep."/".$_FILES["notify-image"]["name"];
 }
 $con=mysqli_connect("localhost","root","","doctor");
-$sql="Select token from usersTest";
+$sql="Select token from users_token";
+
+
 
 $result=mysqli_query($con,$sql);
+echo 'test';
+
+if(!$result){
+    die("Error: ".mysqli_error($con));
+}
 
 $tokens=array();
 if(mysqli_num_rows($result)>0){

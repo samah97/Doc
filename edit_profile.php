@@ -69,7 +69,7 @@ $row=mysqli_fetch_assoc($getInfo);
 <div class="container">
 
 <div class="row">
-<form method="post" onsubmit="updateInfo()">
+<form method="post" onsubmit="updateInfo()" id='doctor-info'>
 <div class="col-md-2 bottom_margin_20">
 <label class="pull-right text_center">First Name:</label>
 </div>
@@ -109,7 +109,7 @@ $row=mysqli_fetch_assoc($getInfo);
 <input type="date" class="form-control" name="dob" value="<?php echo $row['dob'];?>">
 </div>
 <div class="col-md-12">
-<button type="button" class="btn pull-right" style="background-color:#eb0954;color:white;font-weight:bold" name="save-info">SAVE</button>
+<button type="submit" class="btn pull-right" style="background-color:#eb0954;color:white;font-weight:bold" name="save-info">SAVE</button>
 
 </div>
 </form>
@@ -134,13 +134,20 @@ $row=mysqli_fetch_assoc($getInfo);
 
 <script>
 function updateInfo(){
-var form=$("#doctor-info").serliazeArray();
+
+	var form=$("#doctor-info").serializeArray();
 console.log(form);
-/* $.ajax({
-
-
+event.preventDefault();
+$.ajax({
+ type:'POST',
+ url:'assets/update_profile.php',
+ data:form,
+ success:function(response){
+		alertify.alert(response);
+	 }
+	 
 	
-}); */
+}); 
 }
 
 </script>
