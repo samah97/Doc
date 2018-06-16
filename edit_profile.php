@@ -116,12 +116,30 @@ $row=mysqli_fetch_assoc($getInfo);
 </div>
 
 <div class="row">
-<div class="col-md-12">
+<form method="post">
+<div class="col-sm-12">
 <div class="white-line"></div>
 </div>
+<div class="col-sm-12 bottom_margin_20" >
+<h2 class="centered_title">Change Password</h2>
+</div>
+<div class="col-sm-4">
+<label>Old Password:</label>
+<input type="password" name="old_password" class="form-control">
+</div>
+<div class="col-sm-4">
+<label>New Password:</label>
+<input type="password" name="new_password" class="form-control">
+</div>
+<div class="col-sm-4">
+<label>Confirm Password:</label>
+<input type="password" name="confirm_password" class="form-control">
+</div>
 
-
-
+<div class="col-sm-12 text_center">
+<button type="submit" name="change-password" class="btn btn-success top_margin_20 text_center" style='display:inline-block'>Change</button>
+</div>
+</form>
 
 
 
@@ -150,7 +168,37 @@ $.ajax({
 }); 
 }
 
-</script>
 
+</script>
+<?php 
+if(isset($_POST['change-password'])){
+    extract($_POST);
+
+    $query="select * from users where user_id=".$_SESSION['user'];
+    $result=exec_query($query);
+    $row=mysqli_fetch_assoc($result);
+    if (password_verify($old_password, $row['password'])){
+        
+        if($new_password==$confirm_password)
+        {
+            $newPassword=password_hash($new_password,PASSWORD_DEFAULT);
+            if($newPassword==$row['password'])
+                die('<script>alertify.alert("Old Password is the same as the new one!");</script>');
+            $query="update users set password='".$newPassword."' where user_id=".$_SESSION['user'];
+            $update=exec_query($query);
+            
+            if($update)
+                echo "<script>alertify.alert('Password Updated!');</script>";
+            else 
+                echo "<script>alertify.alert('Error Updating Password');</script>";
+        }
+        else
+        echo "<script>alertify.alert('Passwords Dont Match');</script>";
+        
+        }        
+    else echo "<script>alertify.alert('The Password You Entered Is Incorrect');</script>";
+}
+
+    ?>
 </body>
 

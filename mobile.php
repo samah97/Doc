@@ -52,7 +52,7 @@
 
 <?php
 include_once "header.php";
-$result=exec_query("select * from health_tips");
+$result=exec_query("select * from health_tips where doctor_id=".$_SESSION['doc_id']);
 
 ?>
 </head>
@@ -286,8 +286,8 @@ if(isset($_POST['save'])){
 
     }
     else {
-        $query="insert into health_tips(tip_title,tip_description,tip_image,tip_order) values ";
-        $query.="('".$title."','".$description."','".$imageName."',".$order.")";
+        $query="insert into health_tips(tip_title,tip_description,tip_image,tip_order,doctor_id) values ";
+        $query.="('".$title."','".$description."','".$imageName."',".$order.",".$_SESSION['doc_id'].")";
         echo "<script>alertify.alert('Tip Added');</script>";
         
     }
@@ -299,7 +299,7 @@ if(isset($_POST['save'])){
 
 }
 
-
+//print_r($_SESSION);
 
 ?>
 <script>
