@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+
+.prescriptions-table{
+	background-color:#f8f8f8;
+	
+}
+
+.prescriptions-table>thead th{
+color:#eb0954;
+}

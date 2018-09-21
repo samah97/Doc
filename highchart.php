@@ -13,6 +13,8 @@ $min=50;
 while($row=mysqli_fetch_assoc($query)){
 	$dates[]="'".$row['date_of_meas']."'";
 	$data_height[]=$row['height'];
+	$data_weight[]=$row['weight'];
+	$data_head[]=$row['head_diameter'];
 	$data_max[]=$max;
 	$data_min[]=$min;
 	$max+=10;
@@ -40,12 +42,14 @@ while($row=mysqli_fetch_assoc($query)){
 }
 </style>
 
-<div id="container"></div>
+<div id="container-height" class="chart"></div>
+<div id="container-weight" class="chart"></div>
+<div id="container-head" class="chart"></div>
 <script>
-Highcharts.chart('container', {
+Highcharts.chart('container-height', {
 
     title: {
-        text: 'Measurements Chart'
+        text: 'Height Chart'
     },
 
     subtitle: {
@@ -80,6 +84,132 @@ Highcharts.chart('container', {
     series: [{
         name: 'Height',
         data: [<?php echo join($data_height,',');?>]
+    }, {
+        name: 'Maximum',
+        data: [<?php echo join($data_max,',');?>]
+    }, {
+        name: 'Minimum',
+        data: [<?php echo join($data_min,',');?>]
+    },],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+//Weight
+Highcharts.chart('container-weight', {
+
+    title: {
+        text: 'Weight Chart'
+    },
+
+    subtitle: {
+        text: ''
+    },
+	
+	xAxis:{
+		title:{text: 'Date of Measurements' },
+		categories:[<?php echo join($dates,',');?>]
+	},
+	
+    yAxis: {
+        title: {
+            text: 'Weight(kg)'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            
+        }
+    },
+
+    series: [{
+        name: 'Weight',
+        data: [<?php echo join($data_weight,',');?>]
+    }, {
+        name: 'Maximum',
+        data: [<?php echo join($data_max,',');?>]
+    }, {
+        name: 'Minimum',
+        data: [<?php echo join($data_min,',');?>]
+    },],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+//Head
+Highcharts.chart('container-head', {
+
+    title: {
+        text: 'Head Diameter Chart'
+    },
+
+    subtitle: {
+        text: ''
+    },
+	
+	xAxis:{
+		title:{text: 'Date of Measurements' },
+		categories:[<?php echo join($dates,',');?>]
+	},
+	
+    yAxis: {
+        title: {
+            text: 'Head(cm)'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            
+        }
+    },
+
+    series: [{
+        name: 'Head Diameter',
+        data: [<?php echo join($data_head,',');?>]
     }, {
         name: 'Maximum',
         data: [<?php echo join($data_max,',');?>]

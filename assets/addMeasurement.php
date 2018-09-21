@@ -3,8 +3,6 @@
 
 include '../class/Measurements.php';
 
-session_start();
-
 if( $_POST['weight'] !=="" && $_POST['height']!==""){
 $weight=$_POST['weight'];
 $height=$_POST['height'];

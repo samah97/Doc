@@ -29,12 +29,12 @@ include_once("header.php");
 <?php
 $patient_info_query=exec_query("select * from patients where patient_id=".$_SESSION['patient_id']);
 
-$patient_info_result=mysqli_fetch_array($patient_info_query);
+$patient_info_result=mysqli_fetch_assoc($patient_info_query);
 
-if($patient_info_result["address_id"]!==null){
+/* if($patient_info_result["address_id"]!==null){
 $address=exec_query("select * from addresses where address_id=".$patient_info_result["address_id"]);
 $address_row=mysqli_fetch_array($address);
-}
+} */
 
 function get_age($dob){
 	
@@ -78,10 +78,7 @@ if(isset($_REQUEST['btn-back'])){
 	<div class="pull-right">
 	<table>
 	<tr><td>Address:<td><?php
-		if(isset($address_row)) 
-		echo $address_row["building"].", ".$address_row["street"].", ".$address_row["city"].", ".$address_row["country"];
-		else
-			echo "No Address";
+		    echo $patient_info_result["building"].", ".$patient_info_result["street"].", ".$patient_info_result["city"].", ".$patient_info_result["country"];
 		?>
 	</td></tr>
 	<tr><td>Landline:<td><?php echo $patient_info_result["landline"]; ?></td></tr>
@@ -97,5 +94,6 @@ if(isset($_REQUEST['btn-back'])){
 	<?php include("highchart.php"); ?>
 	</div>
 	</div>
+
 	
 </div>

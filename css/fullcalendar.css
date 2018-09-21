@@ -1422,7 +1422,7 @@ be a descendant of the grid when it is being dragged.
 ----------------------------------------------------------------------------------------------*/
 
 .full-calendar-container{
-	background-color:grey;
+	background-color:#f8f8f8;
 	border-radius:1%;
 	padding:10px;
 }
@@ -1432,7 +1432,7 @@ background-color:#bfbfbf;
 height:25px;	
 }
 .fc-center{
-	color:white;
+	color:#65a6ff;
 }
 
 .fc th{

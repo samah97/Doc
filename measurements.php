@@ -54,6 +54,8 @@ if(!isset($_SESSION['patient_id']))
 $get_patient=exec_query("select * from patients where patient_id=".$_SESSION['patient_id']);
 $row_res_patient=mysqli_fetch_array($get_patient);
 ?>
+<script>	</script>
+</head>
 <body>
 <div class="container-fluid">
 <div class="row">
@@ -112,12 +114,12 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 		<h4>Vaccinations</h4>
 		<div class="vaccinations-slider">
 		<?php
-
-			$get_vaccines=exec_query("select DISTINCT * from vaccination v LEFT OUTER JOIN patient_vaccine pv ON pv.vaccination_id=v.vacc_id order by vacc_order asc ");
+            
+			$get_vaccines=exec_query("select * from vaccination v LEFT OUTER JOIN (select * from patient_vaccine where patient_id=".$_SESSION['patient_id'].") pv ON pv.vaccination_id=v.vacc_id order by vacc_order asc ");
 			
 			while($get_vaccines_result=mysqli_fetch_assoc($get_vaccines)){
 		?>
-		<label class="checkbox-container vaccinations-li">
+		<label class="checkbox-container vaccinations-li" <?php if($get_vaccines_result["vaccination_id"]!=null) echo  'id="vacc_'.$get_vaccines_result["patient_vacc_id"].'"' ?>>
 
 			<?php
 			$row="";
@@ -130,6 +132,7 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 				$row.=$get_vaccines_result['from']." &rarr;".$get_vaccines_result['to']."&nbsp;";
 				$row.=(strcmp($get_vaccines_result['type'],"m")==0)?'months':'years';
 				$row.=")</span>";
+				
 				}
 				else{
 
@@ -138,7 +141,9 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 					$row.=(strcmp($get_vaccines_result['type'],"m")==0)?'months':'years';
 					$row.=")</span>";
 				}
-
+				//$row.="<span class='pull-right x-icon'><img class='delete-vacc-icon' src='icons/x-icon.png'/></span>";
+                if($get_vaccines_result["vaccination_id"]!=null) 
+                    $row.='<i class="fa fa-remove pull-right"  onclick="delete_vacc(\'vacc_'.$get_vaccines_result["patient_vacc_id"].'\')" style="font-size:20px;color:red;cursor:pointer"></i>';
 				echo $row;
 				}
 			if($_SESSION['lang']=="ar"){
@@ -158,6 +163,7 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 			        $row.=(strcmp($get_vaccines_result['type'],"m")==0)?'أشهر':'سنين';
 			        $row.=")</span>";
 			    }
+			    //$row.="<span class='pull-right x-icon'><img class='delete-vacc-icon' src='icons/x-icon.png'/></span>";
 			    echo $row;
 			    
 			    
@@ -167,7 +173,7 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 
 			</li>
 			
-		<input type="checkbox"  disabled=true <?php if($get_vaccines_result["vaccination_id"]!=null) echo "checked";?>>
+		<input type="checkbox"  disabled=true <?php if($get_vaccines_result["patient_vacc_id"]!=null) echo "checked";?>>
 		<span class="checkmark"></span>
 
 		</label>
@@ -235,7 +241,7 @@ $row_res_patient=mysqli_fetch_array($get_patient);
 
 		<select class="js-example-basic-single" name="vacc_name" id="vacc_name" style="width:100%;">
 		<?php 
-		$get_vaccines=exec_query("select * from vaccination order by vacc_order asc");
+		$get_vaccines=exec_query("select * from vaccination where vacc_id not in (select vaccination_id from patient_vaccine where patient_id=".$_SESSION['patient_id'].") order by vacc_order asc");
 		while($get_vaccines_result=mysqli_fetch_assoc($get_vaccines)){
 		?>
 		<option value="<?php echo $get_vaccines_result["vacc_id"];?>">
@@ -372,8 +378,7 @@ $('.input-label').html( fileName);
 
 		error:(function (response){
 			alertify.alert(response);
-			c
-			
+	
 
 			})
 
@@ -413,13 +418,33 @@ $('.input-label').html( fileName);
 	    $('.js-example-basic-single').select2();
 
 	    document.getElementById("vacc_date").valueAsDate = new Date()
-		
-
 
 });
 
+function delete_vacc(id){
+	
+	var res=id.split("_");
+	console.log(res);
 
-	 
+	$.ajax({
+		type:"POST",
+		url:"assets/delete_vaccination.php",
+		data:{vacc_id:res[1]},
+		success:function(result){
+			if(result==1){
+				location.reload();
+				}
+			},
+		error:function(result){
+			alertify.alert("Error: "+result);
+			alertify.defaults.glossary.title='Error!';
+			}
+		});
+
+		
+	
+}
+ 
 
 </script>
 <script id="zoom-script"></script>
